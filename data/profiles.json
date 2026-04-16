@@ -21,6 +21,15 @@
         "createdAt": 1776346536806,
         "updatedAt": 1776346536806,
         "relatedThreads": []
+      },
+      {
+        "id": "goal_1776374465725_96q5ln",
+        "title": "generate a personalized health plan , lifestyle plan to live longer you know",
+        "description": "User mentioned: generate a personalized health plan , lifestyle plan to live longer you know",
+        "status": "active",
+        "createdAt": 1776374465725,
+        "updatedAt": 1776374465725,
+        "relatedThreads": []
       }
     ],
     "motivations": [],
@@ -30,11 +39,21 @@
       "interests": [],
       "topicsToAvoid": []
     },
-    "facts": [],
+    "facts": [
+      {
+        "id": "fact_1776375416799_cdhyba",
+        "content": "in the page mention the user needs to load this longevity research skill to claude or gemini or codex, and pass the prompt to the agent in order to produce a meaningful routine and lifestyle builder. also make the form a bit more easier to use. more slide and checkbox, and checkbox, no need to make it fixed. make it dynamic quick match as you type sort of. (make the overall usage and experience as fast and smooth as possible)",
+        "category": "motivation",
+        "confidence": 0.5,
+        "source": "conversation_inference",
+        "createdAt": 1776375416799,
+        "lastReinforced": 1776375416799
+      }
+    ],
     "contextThreads": [],
-    "lastSeen": 1776359243023,
+    "lastSeen": 1776375416566,
     "firstSeen": 1776162655601,
-    "interactionCount": 83
+    "interactionCount": 94
   },
   "1494115569362796675": {
     "id": "1494115569362796675",

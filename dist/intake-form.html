@@ -6,128 +6,187 @@
   <title>Longevity Blueprint Generator</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; padding: 2rem; }
-    .container { max-width: 700px; margin: 0 auto; }
-    h1 { text-align: center; margin-bottom: 0.5rem; }
-    .subtitle { text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
-    .form-section { background: #16213e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-    .section-title { font-size: 1.1rem; color: #e94560; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
-    .field { margin-bottom: 1.2rem; }
-    label { display: block; margin-bottom: 0.4rem; color: #ccc; font-size: 0.9rem; }
-    input, select, textarea { width: 100%; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #333; background: #0f3460; color: #fff; font-size: 1rem; }
-    input:focus, select:focus, textarea:focus { outline: none; border-color: #e94560; }
-    textarea { resize: vertical; min-height: 80px; }
-    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    .conditions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-    .condition-item { display: flex; align-items: center; gap: 0.5rem; background: #0f3460; padding: 0.5rem 0.75rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
-    .condition-item:hover { background: #1a4a7a; }
-    .condition-item input { width: auto; }
-    .condition-item label { margin: 0; cursor: pointer; font-size: 0.85rem; }
-    .generate-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #e94560, #0f3460); border: none; border-radius: 10px; color: #fff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+    :root {
+      --bg: #0f0f1a;
+      --card: #1a1a2e;
+      --accent: #e94560;
+      --accent2: #0f3460;
+      --text: #eee;
+      --muted: #888;
+      --input-bg: #16213e;
+    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; padding: 1.5rem; }
+    .container { max-width: 600px; margin: 0 auto; }
+
+    .hero { text-align: center; margin-bottom: 2rem; }
+    .hero h1 { font-size: 1.8rem; margin-bottom: 0.5rem; background: linear-gradient(135deg, #e94560, #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+    .hero .skill-note { background: #1a4a2e; border: 1px solid #27ae60; border-radius: 8px; padding: 0.75rem 1rem; margin-top: 1rem; font-size: 0.82rem; color: #7ee89a; text-align: left; }
+    .hero .skill-note strong { color: #a8f0b8; }
+
+    .card { background: var(--card); border-radius: 16px; padding: 1.25rem; margin-bottom: 1rem; }
+    .card-title { font-size: 0.85rem; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    .slider-field { margin-bottom: 1rem; }
+    .slider-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+    .slider-label { font-size: 0.9rem; color: #ccc; }
+    .slider-value { font-size: 0.85rem; color: var(--accent); font-weight: 600; min-width: 40px; text-align: right; }
+    input[type="range"] { width: 100%; height: 6px; border-radius: 3px; background: var(--accent2); appearance: none; cursor: pointer; }
+    input[type="range"]::-webkit-slider-thumb { appearance: none; width: 18px; height: 18px; border-radius: 50%; background: var(--accent); cursor: pointer; box-shadow: 0 0 8px rgba(233,69,96,0.5); }
+
+    .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .checkbox-item { background: var(--input-bg); border-radius: 8px; padding: 0.6rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; transition: background 0.15s, border-color 0.15s; border: 1.5px solid transparent; font-size: 0.85rem; }
+    .checkbox-item:hover { background: #1e2a4a; }
+    .checkbox-item.selected { border-color: var(--accent); background: #2a1a3e; }
+    .checkbox-item input { display: none; }
+    .checkbox-item .checkmark { width: 16px; height: 16px; border-radius: 4px; border: 2px solid #444; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; }
+    .checkbox-item.selected .checkmark { background: var(--accent); border-color: var(--accent); }
+    .checkbox-item.selected .checkmark::after { content: '✓'; font-size: 10px; color: white; }
+    .checkbox-item .label { color: #ccc; }
+    .checkbox-item.selected .label { color: #fff; }
+
+    .text-field { width: 100%; padding: 0.7rem 1rem; border-radius: 8px; border: 1.5px solid #333; background: var(--input-bg); color: #fff; font-size: 0.9rem; transition: border-color 0.2s; }
+    .text-field:focus { outline: none; border-color: var(--accent); }
+    .text-field::placeholder { color: #555; }
+
+    .section { margin-bottom: 0.75rem; }
+
+    .sex-toggle { display: flex; gap: 0.5rem; }
+    .sex-pill { flex: 1; text-align: center; padding: 0.7rem; border-radius: 10px; background: var(--input-bg); cursor: pointer; border: 1.5px solid transparent; font-size: 0.9rem; color: #888; transition: all 0.15s; }
+    .sex-pill.selected { border-color: var(--accent); color: #fff; background: #2a1a3e; }
+
+    .activity-display { font-size: 0.8rem; color: var(--accent); margin-top: 0.3rem; }
+
+    .generate-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, var(--accent), #c0354a); border: none; border-radius: 12px; color: #fff; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: transform 0.15s, opacity 0.15s; margin-top: 0.5rem; }
     .generate-btn:hover { transform: scale(1.02); }
-    .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .output-section { background: #16213e; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: none; }
-    .output-section.visible { display: block; }
+    .generate-btn:active { transform: scale(0.98); }
+
+    .output-section { background: var(--card); border-radius: 16px; padding: 1.25rem; margin-top: 1.5rem; display: none; }
+    .output-section.visible { display: block; animation: slideUp 0.3s ease; }
+    @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
-    .output-title { font-size: 1.1rem; color: #e94560; }
-    .copy-btn { padding: 0.5rem 1rem; background: #e94560; border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 0.9rem; transition: opacity 0.2s; }
-    .copy-btn:hover { opacity: 0.85; }
+    .output-title { font-size: 1rem; color: var(--accent); font-weight: 600; }
+    .copy-btn { padding: 0.5rem 1rem; background: var(--accent); border: none; border-radius: 8px; color: #fff; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: background 0.2s; }
+    .copy-btn:hover { background: #c0354a; }
     .copy-btn.copied { background: #27ae60; }
-    .prompt-output { background: #0a0a1a; padding: 1rem; border-radius: 8px; white-space: pre-wrap; font-size: 0.85rem; line-height: 1.6; max-height: 500px; overflow-y: auto; }
-    .instructions { background: #0f3460; border-radius: 8px; padding: 1rem; margin-top: 1rem; font-size: 0.85rem; color: #aaa; }
-    .instructions ol { margin-left: 1.2rem; }
-    .instructions li { margin-bottom: 0.4rem; }
+    .prompt-output { background: #0a0a1a; padding: 1rem; border-radius: 8px; white-space: pre-wrap; font-size: 0.78rem; line-height: 1.6; max-height: 400px; overflow-y: auto; color: #aaa; }
+    .instructions { background: var(--input-bg); border-radius: 8px; padding: 0.85rem 1rem; margin-top: 1rem; font-size: 0.8rem; color: #888; }
+    .instructions strong { color: #ccc; }
+    .instructions ol { margin-left: 1rem; }
+    .instructions li { margin-bottom: 0.3rem; }
+    .prompt-output::-webkit-scrollbar { width: 6px; }
+    .prompt-output::-webkit-scrollbar-track { background: transparent; }
+    .prompt-output::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>Longevity Blueprint Generator</h1>
-    <p class="subtitle">Answer a few questions, copy the prompt, paste into ChatGPT or Gemini</p>
+    <div class="hero">
+      <h1>Longevity Blueprint Generator</h1>
+      <p>Answer a few quick questions. Get a prompt. Paste into AI.<br>Get your personalized health & lifestyle plan.</p>
+      <div class="skill-note">
+        <strong>Want an AI agent to build your plan automatically?</strong><br>
+        Load the <strong>"longevity-advisor"</strong> skill in Claude, Gemini, or Codex — paste your prompt there and let the agent generate a detailed routine for you.
+      </div>
+    </div>
 
     <form id="intakeForm">
-      <div class="form-section">
-        <div class="section-title">👤 Basic Info</div>
-        <div class="row">
-          <div class="field">
-            <label>Age</label>
-            <input type="number" id="age" min="18" max="120" placeholder="e.g. 45" required>
-          </div>
-          <div class="field">
-            <label>Sex</label>
-            <select id="sex">
-              <option value="">Select...</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
+      <div class="card">
+        <div class="card-title">👤 About You</div>
+        <div class="section">
+          <div class="slider-field">
+            <div class="slider-header">
+              <span class="slider-label">Age</span>
+              <span class="slider-value" id="ageValue">30</span>
+            </div>
+            <input type="range" id="age" min="18" max="100" value="30">
           </div>
         </div>
-        <div class="row">
-          <div class="field">
-            <label>Weight (lbs or kg)</label>
-            <input type="text" id="weight" placeholder="e.g. 180 lbs or 82 kg">
+        <div class="section">
+          <div class="slider-label" style="margin-bottom:0.5rem;">Biological Sex</div>
+          <div class="sex-toggle">
+            <div class="sex-pill selected" data-val="male">♂ Male</div>
+            <div class="sex-pill" data-val="female">♀ Female</div>
           </div>
-          <div class="field">
-            <label>Height (or BMI if known)</label>
-            <input type="text" id="height" placeholder="e.g. 5'10" or 178cm">
+        </div>
+        <div class="section">
+          <div class="slider-field">
+            <div class="slider-header">
+              <span class="slider-label">Weight</span>
+              <span class="slider-value" id="weightValue">160 lbs</span>
+            </div>
+            <input type="range" id="weight" min="80" max="350" value="160">
+          </div>
+        </div>
+        <div class="section">
+          <div class="slider-field">
+            <div class="slider-header">
+              <span class="slider-label">Height</span>
+              <span class="slider-value" id="heightValue">5'8"</span>
+            </div>
+            <input type="range" id="height" min="48" max="96" value="68">
           </div>
         </div>
       </div>
 
-      <div class="form-section">
-        <div class="section-title">🏥 Health Conditions</div>
-        <p style="color:#888;font-size:0.85rem;margin-bottom:0.8rem;">Select any that apply:</p>
-        <div class="conditions-grid" id="conditionsGrid">
-          <div class="condition-item"><input type="checkbox" id="type2diabetes"><label for="type2diabetes">Type 2 Diabetes</label></div>
-          <div class="condition-item"><input type="checkbox" id="hypertension"><label for="hypertension">Hypertension</label></div>
-          <div class="condition-item"><input type="checkbox" id="highcholesterol"><label for="highcholesterol">High Cholesterol</label></div>
-          <div class="condition-item"><input type="checkbox" id="inflammation"><label for="inflammation">Chronic Inflammation</label></div>
-          <div class="condition-item"><input type="checkbox" id="gutissues"><label for="gutissues">Gut Issues</label></div>
-          <div class="condition-item"><input type="checkbox" id="sarcopenia"><label for="sarcopenia">Sarcopenia / Muscle Loss</label></div>
-          <div class="condition-item"><input type="checkbox" id="osteopenia"><label for="osteopenia">Osteopenia / Bone Loss</label></div>
-          <div class="condition-item"><input type="checkbox" id="anxiety"><label for="anxiety">Anxiety / Depression</label></div>
-          <div class="condition-item"><input type="checkbox" id="sleepissues"><label for="sleepissues">Sleep Problems</label></div>
-          <div class="condition-item"><input type="checkbox" id="heart disease"><label for="heart disease">Heart Disease</label></div>
-          <div class="condition-item"><input type="checkbox" id="fattyliver"><label for="fattyliver">Fatty Liver</label></div>
-          <div class="condition-item"><input type="checkbox" id="none"><label for="none">None of these</label></div>
-        </div>
-        <div class="field" style="margin-top:1rem;">
-          <label>Other conditions or health notes</label>
-          <textarea id="otherConditions" placeholder="Anything else relevant: autoimmune conditions, thyroid issues, etc."></textarea>
+      <div class="card">
+        <div class="card-title">🏥 Health Conditions</div>
+        <p style="font-size:0.8rem;color:#666;margin-bottom:0.75rem;">Tap all that apply</p>
+        <div class="checkbox-grid" id="conditionsGrid">
+          <label class="checkbox-item" data-key="type2diabetes"><input type="checkbox" value="Type 2 Diabetes"><span class="checkmark"></span><span class="label">Type 2 Diabetes</span></label>
+          <label class="checkbox-item" data-key="hypertension"><input type="checkbox" value="Hypertension"><span class="checkmark"></span><span class="label">Hypertension</span></label>
+          <label class="checkbox-item" data-key="highcholesterol"><input type="checkbox" value="High Cholesterol"><span class="checkmark"></span><span class="label">High Cholesterol</span></label>
+          <label class="checkbox-item" data-key="inflammation"><input type="checkbox" value="Chronic Inflammation"><span class="checkmark"></span><span class="label">Chronic Inflammation</span></label>
+          <label class="checkbox-item" data-key="gutissues"><input type="checkbox" value="Gut Issues"><span class="checkmark"></span><span class="label">Gut Issues</span></label>
+          <label class="checkbox-item" data-key="sarcopenia"><input type="checkbox" value="Sarcopenia / Muscle Loss"><span class="checkmark"></span><span class="label">Sarcopenia</span></label>
+          <label class="checkbox-item" data-key="osteopenia"><input type="checkbox" value="Osteopenia / Bone Loss"><span class="checkmark"></span><span class="label">Osteopenia</span></label>
+          <label class="checkbox-item" data-key="anxiety"><input type="checkbox" value="Anxiety / Depression"><span class="checkmark"></span><span class="label">Anxiety / Depression</span></label>
+          <label class="checkbox-item" data-key="sleepissues"><input type="checkbox" value="Sleep Problems"><span class="checkmark"></span><span class="label">Sleep Problems</span></label>
+          <label class="checkbox-item" data-key="heart disease"><input type="checkbox" value="Heart Disease"><span class="checkmark"></span><span class="label">Heart Disease</span></label>
+          <label class="checkbox-item" data-key="fattyliver"><input type="checkbox" value="Fatty Liver"><span class="checkmark"></span><span class="label">Fatty Liver</span></label>
+          <label class="checkbox-item" data-key="none"><input type="checkbox" value="None"><span class="checkmark"></span><span class="label">None of these</span></label>
         </div>
       </div>
 
-      <div class="form-section">
-        <div class="section-title">💊 Current Medications</div>
-        <div class="field">
-          <label>List your current medications (important for interactions)</label>
-          <textarea id="medications" placeholder="e.g. Metformin 500mg, Lisinopril 10mg, Vitamin D3..."></textarea>
+      <div class="card">
+        <div class="card-title">🎯 Your Goals</div>
+        <div class="checkbox-grid">
+          <label class="checkbox-item" data-key="goalfatloss"><input type="checkbox" value="Fat Loss"><span class="checkmark"></span><span class="label">Fat Loss</span></label>
+          <label class="checkbox-item" data-key="goalmuscle"><input type="checkbox" value="Build Muscle"><span class="checkmark"></span><span class="label">Build Muscle</span></label>
+          <label class="checkbox-item" data-key="goalenergy"><input type="checkbox" value="More Energy"><span class="checkmark"></span><span class="label">More Energy</span></label>
+          <label class="checkbox-item" data-key="goaldisease"><input type="checkbox" value="Disease Management"><span class="checkmark"></span><span class="label">Disease Management</span></label>
+          <label class="checkbox-item" data-key="goallongevity"><input type="checkbox" value="Live Longer"><span class="checkmark"></span><span class="label">Live Longer</span></label>
+          <label class="checkbox-item" data-key="goalmental"><input type="checkbox" value="Mental Clarity"><span class="checkmark"></span><span class="label">Mental Clarity</span></label>
         </div>
       </div>
 
-      <div class="form-section">
-        <div class="section-title">🎯 Goals</div>
-        <div class="conditions-grid">
-          <div class="condition-item"><input type="checkbox" id="goalfatloss"><label for="goalfatloss">Fat Loss</label></div>
-          <div class="condition-item"><input type="checkbox" id="goalmuscle"><label for="goalmuscle">Build Muscle</label></div>
-          <div class="condition-item"><input type="checkbox" id="goaldisease"><label for="goaldisease">Disease Management</label></div>
-          <div class="condition-item"><input type="checkbox" id="goallongevity"><label for="goallongevity">General Longevity</label></div>
+      <div class="card">
+        <div class="card-title">🏋️ Activity Level</div>
+        <div class="section">
+          <div class="slider-field">
+            <div class="slider-header">
+              <span class="slider-label">Exercise frequency</span>
+              <span class="slider-value" id="activityValue">2-3 days/week</span>
+            </div>
+            <input type="range" id="activity" min="1" max="5" value="2">
+          </div>
+          <div class="activity-display" id="activityDisplay">Moderate — 2-3 days/week of exercise</div>
         </div>
-        <div class="field" style="margin-top:1rem;">
-          <label>Other goals or priorities</label>
-          <input type="text" id="otherGoals" placeholder="e.g. Run a marathon, get off meds, improve energy...">
+        <div class="section">
+          <div class="slider-field">
+            <div class="slider-header">
+              <span class="slider-label">Fasting window</span>
+              <span class="slider-value" id="fastingValue">14:10</span>
+            </div>
+            <input type="range" id="fasting" min="1" max="5" value="2">
+          </div>
         </div>
       </div>
 
-      <div class="form-section">
-        <div class="section-title">🏋️ Exercise & Activity</div>
-        <div class="field">
-          <label>Current exercise routine</label>
-          <textarea id="exercise" placeholder="e.g. Sedentary, or 3x/week light cardio, or weight training 4x/week..."></textarea>
-        </div>
-        <div class="field">
-          <label>Dietary restrictions</label>
-          <input type="text" id="diet" placeholder="e.g. Vegetarian, gluten-free, lactose intolerant...">
-        </div>
+      <div class="card">
+        <div class="card-title">💊 Medications & Other Notes</div>
+        <input type="text" class="text-field" id="medications" placeholder="e.g. Metformin, Lisinopril, Vitamin D3..." style="margin-bottom:0.75rem;">
+        <input type="text" class="text-field" id="otherNotes" placeholder="Anything else: autoimmune, thyroid, allergies...">
       </div>
 
       <button type="submit" class="generate-btn">Generate My Prompt ✨</button>
@@ -135,104 +194,154 @@
 
     <div class="output-section" id="outputSection">
       <div class="output-header">
-        <span class="output-title">📋 Your Custom Prompt</span>
-        <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
+        <span class="output-title">📋 Your AI Prompt</span>
+        <button class="copy-btn" id="copyBtn">Copy</button>
       </div>
       <div class="prompt-output" id="promptOutput"></div>
       <div class="instructions">
-        <strong>How to use:</strong>
+        <strong>Next steps:</strong>
         <ol>
-          <li>Click "Copy to Clipboard" above</li>
-          <li>Go to <strong>chat.openai.com</strong> or <strong>gemini.google.com</strong></li>
-          <li>Start a new chat and paste the prompt</li>
-          <li>Hit enter and get your personalized longevity plan!</li>
+          <li>Copy the prompt above</li>
+          <li>Open <strong>ChatGPT</strong> or <strong>Gemini</strong> or load the <strong>longevity-advisor skill</strong> in Claude/Codex</li>
+          <li>Paste it and get your personalized plan!</li>
         </ol>
       </div>
     </div>
   </div>
 
   <script>
-    const form = document.getElementById('intakeForm');
-    const outputSection = document.getElementById('outputSection');
-    const promptOutput = document.getElementById('promptOutput');
-    const copyBtn = document.getElementById('copyBtn');
+    const activityLabels = ['Sedentary', 'Light', 'Moderate', 'Active', 'Athlete'];
+    const activityDisplays = [
+      'Sedentary — desk job, little to no exercise',
+      'Light activity — desk job with occasional walks',
+      'Moderate — 2-3 days/week of exercise',
+      'Active — 4-5 days/week with intensity',
+      'Athlete — daily intense training'
+    ];
+    const fastingLabels = ['12:12', '14:10', '16:8', '18:6', '20:4'];
 
-    form.addEventListener('submit', (e) => {
+    document.getElementById('age').addEventListener('input', e => {
+      document.getElementById('ageValue').textContent = e.target.value;
+    });
+    document.getElementById('weight').addEventListener('input', e => {
+      document.getElementById('weightValue').textContent = e.target.value + ' lbs';
+    });
+    document.getElementById('height').addEventListener('input', e => {
+      const inches = parseInt(e.target.value);
+      const feet = Math.floor(inches / 12);
+      const rem = inches % 12;
+      document.getElementById('heightValue').textContent = feet + "'" + rem + '"';
+    });
+    document.getElementById('activity').addEventListener('input', e => {
+      const idx = parseInt(e.target.value) - 1;
+      document.getElementById('activityValue').textContent = activityLabels[idx];
+      document.getElementById('activityDisplay').textContent = activityDisplays[idx];
+    });
+    document.getElementById('fasting').addEventListener('input', e => {
+      document.getElementById('fastingValue').textContent = fastingLabels[parseInt(e.target.value) - 1];
+    });
+
+    document.querySelectorAll('.sex-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.sex-pill').forEach(p => p.classList.remove('selected'));
+        pill.classList.add('selected');
+      });
+    });
+
+    document.querySelectorAll('.checkbox-item').forEach(item => {
+      item.addEventListener('click', e => {
+        const key = item.dataset.key;
+        if (key === 'none') {
+          if (!item.classList.contains('selected')) {
+            document.querySelectorAll('.checkbox-item').forEach(i => i.classList.remove('selected'));
+            item.classList.add('selected');
+            item.querySelector('input').checked = true;
+          }
+          return;
+        }
+        const noneItem = document.querySelector('.checkbox-item[data-key="none"]');
+        noneItem.classList.remove('selected');
+        noneItem.querySelector('input').checked = false;
+
+        item.classList.toggle('selected');
+        item.querySelector('input').checked = item.classList.contains('selected');
+      });
+    });
+
+    document.getElementById('intakeForm').addEventListener('submit', e => {
       e.preventDefault();
-
       const age = document.getElementById('age').value;
-      const sex = document.getElementById('sex').value;
-      const weight = document.getElementById('weight').value;
-      const height = document.getElementById('height').value;
+      const sex = document.querySelector('.sex-pill.selected').dataset.val;
+      const weight = document.getElementById('weight').value + ' lbs';
+      const heightInches = parseInt(document.getElementById('height').value);
+      const feet = Math.floor(heightInches / 12);
+      const rem = heightInches % 12;
+      const height = feet + "'" + rem + '" (' + Math.round(heightInches * 2.54) + 'cm)';
 
       const conditions = [];
-      document.querySelectorAll('#conditionsGrid input:checked').forEach(cb => {
-        if (cb.id !== 'none') conditions.push(cb.nextElementSibling.textContent);
+      document.querySelectorAll('#conditionsGrid .checkbox-item.selected input').forEach(cb => {
+        if (cb.value !== 'None') conditions.push(cb.value);
       });
-
-      const otherConditions = document.getElementById('otherConditions').value.trim();
-      const medications = document.getElementById('medications').value.trim();
 
       const goals = [];
-      document.querySelectorAll('[id^="goal"]:checked').forEach(cb => {
-        goals.push(cb.nextElementSibling.textContent);
+      document.querySelectorAll('.card:nth-child(3) .checkbox-item.selected input').forEach(cb => {
+        goals.push(cb.value);
       });
-      const otherGoals = document.getElementById('otherGoals').value.trim();
 
-      const exercise = document.getElementById('exercise').value.trim();
-      const diet = document.getElementById('diet').value.trim();
+      const activityIdx = parseInt(document.getElementById('activity').value) - 1;
+      const fasting = fastingLabels[parseInt(document.getElementById('fasting').value) - 1];
+      const medications = document.getElementById('medications').value.trim();
+      const otherNotes = document.getElementById('otherNotes').value.trim();
 
-      const prompt = `You are a longevity and health optimization expert. Based on the following information about me, create a personalized daily health and lifestyle plan designed to help me live a longer, healthier life.
+      const prompt = `You are an expert longevity and health optimization advisor. Create a highly personalized daily health and lifestyle blueprint for me.
 
-## My Information
-- Age: ${age || 'not provided'}
-- Sex: ${sex || 'not provided'}
-- Weight/Height (or BMI): ${weight || 'not provided'} / ${height || 'not provided'}
+## My Profile
+- Age: ${age}
+- Sex: ${sex === 'male' ? 'Male' : 'Female'}
+- Weight: ${weight}
+- Height: ${height}
 
 ## Health Conditions
 ${conditions.length > 0 ? conditions.join(', ') : 'None reported'}
-${otherConditions ? `\nOther health notes: ${otherConditions}` : ''}
+${otherNotes ? `Other health notes: ${otherNotes}` : ''}
 
 ## Current Medications
 ${medications || 'None reported'}
 
 ## My Goals
 ${goals.length > 0 ? goals.join(', ') : 'General longevity and health optimization'}
-${otherGoals ? `\nOther priorities: ${otherGoals}` : ''}
 
-## Current Activity & Diet
-- Exercise: ${exercise || 'not provided'}
-- Dietary restrictions: ${diet || 'none'}
+## Lifestyle
+- Activity level: ${activityDisplays[activityIdx]}
+- Preferred fasting window: ${fasting} (eating window vs fast)
 
-## What I Want From You
-Please create a comprehensive, personalized daily routine including:
+## What I Need From You
+Create a concrete, actionable daily plan including:
 
-1. **Morning Protocol** - wake-up routine, supplements, breakfast timing and composition
-2. **Daily Supplement Stack** - specific supplements, dosages, timing, and why each matters for my conditions/goals
-3. **Meal Timing & Composition** - when to eat, macronutrient balance, foods to emphasize/avoid
-4. **Exercise Recommendations** - type, frequency, intensity, timing relative to meals
-5. **Evening Wind-Down** - pre-sleep routine, evening supplements, light exposure guidelines
-6. **Weekly Focus Areas** - balance of cardio, strength, recovery
-7. **Key Biomarker Targets** - what numbers to track and realistic targets for my situation
-8. **Important Cautions** - any interactions with my medications, when to consult my doctor
+1. **Morning Protocol** — wake time, light exposure, supplements, breakfast timing
+2. **Daily Supplement Stack** — specific supplements, dosages, timing with meals
+3. **Meal Timing & Macros** — eating window, protein/carb/fat balance, foods to prioritize/avoid
+4. **Exercise Plan** — type, frequency, intensity, timing around meals/fasting
+5. **Evening Wind-Down** — pre-sleep routine, screen guidelines, supplements
+6. **Weekly Structure** — balance of cardio, strength, recovery
+7. **Key Biomarker Targets** — numbers to track (fasting glucose, HRV, etc.) with targets
+8. **Cautions** — interactions with medications, when to consult my doctor
 
-Please tailor everything specifically to my health conditions and goals. Be concrete and actionable - include specific amounts, timings, and rationale. Format it so I can actually follow it daily.
+Be specific: exact amounts, timings, food examples. Format it so I can follow it every day without thinking.
 
-This is for educational purposes - I will share this with my healthcare provider before making changes.`;
+This is for educational purposes — I will review with my healthcare provider before making changes.`;
 
-      promptOutput.textContent = prompt;
-      outputSection.classList.add('visible');
-      outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.getElementById('promptOutput').textContent = prompt;
+      document.getElementById('outputSection').classList.add('visible');
+      document.getElementById('outputSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
 
-    copyBtn.addEventListener('click', () => {
-      navigator.clipboard.writeText(promptOutput.textContent).then(() => {
-        copyBtn.textContent = 'Copied! ✓';
-        copyBtn.classList.add('copied');
-        setTimeout(() => {
-          copyBtn.textContent = 'Copy to Clipboard';
-          copyBtn.classList.remove('copied');
-        }, 2000);
+    document.getElementById('copyBtn').addEventListener('click', () => {
+      navigator.clipboard.writeText(document.getElementById('promptOutput').textContent).then(() => {
+        const btn = document.getElementById('copyBtn');
+        btn.textContent = 'Copied! ✓';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
       });
     });
   </script>
