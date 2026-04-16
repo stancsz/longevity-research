@@ -1,5 +1,10 @@
 .env
-data/.relay_history.json
-data/threads.backup.json
+data/
+dist/
+memory.ts
+mission-agent.ts
+relay.ts
+skill-manager.ts
+mcp-*.json
 *.log
 node_modules/
