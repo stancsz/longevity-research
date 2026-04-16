@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Longevity Blueprint Generator</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a2e; color: #eee; min-height: 100vh; padding: 2rem; }
+    .container { max-width: 700px; margin: 0 auto; }
+    h1 { text-align: center; margin-bottom: 0.5rem; }
+    .subtitle { text-align: center; color: #888; margin-bottom: 2rem; font-size: 0.95rem; }
+    .form-section { background: #16213e; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    .section-title { font-size: 1.1rem; color: #e94560; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+    .field { margin-bottom: 1.2rem; }
+    label { display: block; margin-bottom: 0.4rem; color: #ccc; font-size: 0.9rem; }
+    input, select, textarea { width: 100%; padding: 0.7rem 1rem; border-radius: 8px; border: 1px solid #333; background: #0f3460; color: #fff; font-size: 1rem; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #e94560; }
+    textarea { resize: vertical; min-height: 80px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .conditions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .condition-item { display: flex; align-items: center; gap: 0.5rem; background: #0f3460; padding: 0.5rem 0.75rem; border-radius: 6px; cursor: pointer; transition: background 0.2s; }
+    .condition-item:hover { background: #1a4a7a; }
+    .condition-item input { width: auto; }
+    .condition-item label { margin: 0; cursor: pointer; font-size: 0.85rem; }
+    .generate-btn { width: 100%; padding: 1rem; background: linear-gradient(135deg, #e94560, #0f3460); border: none; border-radius: 10px; color: #fff; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: transform 0.2s, opacity 0.2s; }
+    .generate-btn:hover { transform: scale(1.02); }
+    .generate-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .output-section { background: #16213e; border-radius: 12px; padding: 1.5rem; margin-top: 2rem; display: none; }
+    .output-section.visible { display: block; }
+    .output-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+    .output-title { font-size: 1.1rem; color: #e94560; }
+    .copy-btn { padding: 0.5rem 1rem; background: #e94560; border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 0.9rem; transition: opacity 0.2s; }
+    .copy-btn:hover { opacity: 0.85; }
+    .copy-btn.copied { background: #27ae60; }
+    .prompt-output { background: #0a0a1a; padding: 1rem; border-radius: 8px; white-space: pre-wrap; font-size: 0.85rem; line-height: 1.6; max-height: 500px; overflow-y: auto; }
+    .instructions { background: #0f3460; border-radius: 8px; padding: 1rem; margin-top: 1rem; font-size: 0.85rem; color: #aaa; }
+    .instructions ol { margin-left: 1.2rem; }
+    .instructions li { margin-bottom: 0.4rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Longevity Blueprint Generator</h1>
+    <p class="subtitle">Answer a few questions, copy the prompt, paste into ChatGPT or Gemini</p>
+
+    <form id="intakeForm">
+      <div class="form-section">
+        <div class="section-title">👤 Basic Info</div>
+        <div class="row">
+          <div class="field">
+            <label>Age</label>
+            <input type="number" id="age" min="18" max="120" placeholder="e.g. 45" required>
+          </div>
+          <div class="field">
+            <label>Sex</label>
+            <select id="sex">
+              <option value="">Select...</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="field">
+            <label>Weight (lbs or kg)</label>
+            <input type="text" id="weight" placeholder="e.g. 180 lbs or 82 kg">
+          </div>
+          <div class="field">
+            <label>Height (or BMI if known)</label>
+            <input type="text" id="height" placeholder="e.g. 5'10" or 178cm">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-title">🏥 Health Conditions</div>
+        <p style="color:#888;font-size:0.85rem;margin-bottom:0.8rem;">Select any that apply:</p>
+        <div class="conditions-grid" id="conditionsGrid">
+          <div class="condition-item"><input type="checkbox" id="type2diabetes"><label for="type2diabetes">Type 2 Diabetes</label></div>
+          <div class="condition-item"><input type="checkbox" id="hypertension"><label for="hypertension">Hypertension</label></div>
+          <div class="condition-item"><input type="checkbox" id="highcholesterol"><label for="highcholesterol">High Cholesterol</label></div>
+          <div class="condition-item"><input type="checkbox" id="inflammation"><label for="inflammation">Chronic Inflammation</label></div>
+          <div class="condition-item"><input type="checkbox" id="gutissues"><label for="gutissues">Gut Issues</label></div>
+          <div class="condition-item"><input type="checkbox" id="sarcopenia"><label for="sarcopenia">Sarcopenia / Muscle Loss</label></div>
+          <div class="condition-item"><input type="checkbox" id="osteopenia"><label for="osteopenia">Osteopenia / Bone Loss</label></div>
+          <div class="condition-item"><input type="checkbox" id="anxiety"><label for="anxiety">Anxiety / Depression</label></div>
+          <div class="condition-item"><input type="checkbox" id="sleepissues"><label for="sleepissues">Sleep Problems</label></div>
+          <div class="condition-item"><input type="checkbox" id="heart disease"><label for="heart disease">Heart Disease</label></div>
+          <div class="condition-item"><input type="checkbox" id="fattyliver"><label for="fattyliver">Fatty Liver</label></div>
+          <div class="condition-item"><input type="checkbox" id="none"><label for="none">None of these</label></div>
+        </div>
+        <div class="field" style="margin-top:1rem;">
+          <label>Other conditions or health notes</label>
+          <textarea id="otherConditions" placeholder="Anything else relevant: autoimmune conditions, thyroid issues, etc."></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-title">💊 Current Medications</div>
+        <div class="field">
+          <label>List your current medications (important for interactions)</label>
+          <textarea id="medications" placeholder="e.g. Metformin 500mg, Lisinopril 10mg, Vitamin D3..."></textarea>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-title">🎯 Goals</div>
+        <div class="conditions-grid">
+          <div class="condition-item"><input type="checkbox" id="goalfatloss"><label for="goalfatloss">Fat Loss</label></div>
+          <div class="condition-item"><input type="checkbox" id="goalmuscle"><label for="goalmuscle">Build Muscle</label></div>
+          <div class="condition-item"><input type="checkbox" id="goaldisease"><label for="goaldisease">Disease Management</label></div>
+          <div class="condition-item"><input type="checkbox" id="goallongevity"><label for="goallongevity">General Longevity</label></div>
+        </div>
+        <div class="field" style="margin-top:1rem;">
+          <label>Other goals or priorities</label>
+          <input type="text" id="otherGoals" placeholder="e.g. Run a marathon, get off meds, improve energy...">
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="section-title">🏋️ Exercise & Activity</div>
+        <div class="field">
+          <label>Current exercise routine</label>
+          <textarea id="exercise" placeholder="e.g. Sedentary, or 3x/week light cardio, or weight training 4x/week..."></textarea>
+        </div>
+        <div class="field">
+          <label>Dietary restrictions</label>
+          <input type="text" id="diet" placeholder="e.g. Vegetarian, gluten-free, lactose intolerant...">
+        </div>
+      </div>
+
+      <button type="submit" class="generate-btn">Generate My Prompt ✨</button>
+    </form>
+
+    <div class="output-section" id="outputSection">
+      <div class="output-header">
+        <span class="output-title">📋 Your Custom Prompt</span>
+        <button class="copy-btn" id="copyBtn">Copy to Clipboard</button>
+      </div>
+      <div class="prompt-output" id="promptOutput"></div>
+      <div class="instructions">
+        <strong>How to use:</strong>
+        <ol>
+          <li>Click "Copy to Clipboard" above</li>
+          <li>Go to <strong>chat.openai.com</strong> or <strong>gemini.google.com</strong></li>
+          <li>Start a new chat and paste the prompt</li>
+          <li>Hit enter and get your personalized longevity plan!</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('intakeForm');
+    const outputSection = document.getElementById('outputSection');
+    const promptOutput = document.getElementById('promptOutput');
+    const copyBtn = document.getElementById('copyBtn');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const age = document.getElementById('age').value;
+      const sex = document.getElementById('sex').value;
+      const weight = document.getElementById('weight').value;
+      const height = document.getElementById('height').value;
+
+      const conditions = [];
+      document.querySelectorAll('#conditionsGrid input:checked').forEach(cb => {
+        if (cb.id !== 'none') conditions.push(cb.nextElementSibling.textContent);
+      });
+
+      const otherConditions = document.getElementById('otherConditions').value.trim();
+      const medications = document.getElementById('medications').value.trim();
+
+      const goals = [];
+      document.querySelectorAll('[id^="goal"]:checked').forEach(cb => {
+        goals.push(cb.nextElementSibling.textContent);
+      });
+      const otherGoals = document.getElementById('otherGoals').value.trim();
+
+      const exercise = document.getElementById('exercise').value.trim();
+      const diet = document.getElementById('diet').value.trim();
+
+      const prompt = `You are a longevity and health optimization expert. Based on the following information about me, create a personalized daily health and lifestyle plan designed to help me live a longer, healthier life.
+
+## My Information
+- Age: ${age || 'not provided'}
+- Sex: ${sex || 'not provided'}
+- Weight/Height (or BMI): ${weight || 'not provided'} / ${height || 'not provided'}
+
+## Health Conditions
+${conditions.length > 0 ? conditions.join(', ') : 'None reported'}
+${otherConditions ? `\nOther health notes: ${otherConditions}` : ''}
+
+## Current Medications
+${medications || 'None reported'}
+
+## My Goals
+${goals.length > 0 ? goals.join(', ') : 'General longevity and health optimization'}
+${otherGoals ? `\nOther priorities: ${otherGoals}` : ''}
+
+## Current Activity & Diet
+- Exercise: ${exercise || 'not provided'}
+- Dietary restrictions: ${diet || 'none'}
+
+## What I Want From You
+Please create a comprehensive, personalized daily routine including:
+
+1. **Morning Protocol** - wake-up routine, supplements, breakfast timing and composition
+2. **Daily Supplement Stack** - specific supplements, dosages, timing, and why each matters for my conditions/goals
+3. **Meal Timing & Composition** - when to eat, macronutrient balance, foods to emphasize/avoid
+4. **Exercise Recommendations** - type, frequency, intensity, timing relative to meals
+5. **Evening Wind-Down** - pre-sleep routine, evening supplements, light exposure guidelines
+6. **Weekly Focus Areas** - balance of cardio, strength, recovery
+7. **Key Biomarker Targets** - what numbers to track and realistic targets for my situation
+8. **Important Cautions** - any interactions with my medications, when to consult my doctor
+
+Please tailor everything specifically to my health conditions and goals. Be concrete and actionable - include specific amounts, timings, and rationale. Format it so I can actually follow it daily.
+
+This is for educational purposes - I will share this with my healthcare provider before making changes.`;
+
+      promptOutput.textContent = prompt;
+      outputSection.classList.add('visible');
+      outputSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    copyBtn.addEventListener('click', () => {
+      navigator.clipboard.writeText(promptOutput.textContent).then(() => {
+        copyBtn.textContent = 'Copied! ✓';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy to Clipboard';
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  </script>
+</body>
+</html>
