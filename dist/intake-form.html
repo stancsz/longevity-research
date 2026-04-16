@@ -253,6 +253,7 @@
 
     document.querySelectorAll('.checkbox-item').forEach(item => {
       item.addEventListener('click', e => {
+        e.preventDefault();
         const key = item.dataset.key;
         if (key === 'none') {
           if (!item.classList.contains('selected')) {
