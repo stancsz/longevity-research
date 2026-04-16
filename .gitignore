@@ -1,0 +1,5 @@
+.env
+data/.relay_history.json
+data/threads.backup.json
+*.log
+node_modules/

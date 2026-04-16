@@ -1,0 +1,57 @@
+{
+  "913957031650656288": {
+    "id": "913957031650656288",
+    "name": "stancsz",
+    "relationships": [],
+    "goals": [
+      {
+        "id": "goal_1776176580625_t26eej",
+        "title": "do to enable you to download skills and hot load it?",
+        "description": "User mentioned: do to enable you to download skills and hot load it?",
+        "status": "active",
+        "createdAt": 1776176580625,
+        "updatedAt": 1776176580625,
+        "relatedThreads": []
+      },
+      {
+        "id": "goal_1776346536806_egpex0",
+        "title": "serve it out of doc's folder",
+        "description": "User mentioned: serve it out of doc's folder",
+        "status": "active",
+        "createdAt": 1776346536806,
+        "updatedAt": 1776346536806,
+        "relatedThreads": []
+      }
+    ],
+    "motivations": [],
+    "preferences": {
+      "tone": "balanced",
+      "communicationStyle": "balanced",
+      "interests": [],
+      "topicsToAvoid": []
+    },
+    "facts": [],
+    "contextThreads": [],
+    "lastSeen": 1776346536628,
+    "firstSeen": 1776162655601,
+    "interactionCount": 76
+  },
+  "1494115569362796675": {
+    "id": "1494115569362796675",
+    "name": "amme0329",
+    "relationships": [],
+    "goals": [],
+    "motivations": [],
+    "preferences": {
+      "tone": "balanced",
+      "communicationStyle": "balanced",
+      "interests": [],
+      "topicsToAvoid": []
+    },
+    "facts": [],
+    "contextThreads": [],
+    "lastSeen": 1776295938976,
+    "firstSeen": 1776295617506,
+    "interactionCount": 6
+  }
+}
