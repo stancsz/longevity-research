@@ -49,6 +49,8 @@
     .text-field:focus { outline: none; border-color: var(--accent); }
     .text-field::placeholder { color: #555; }
 
+    .helper-text { font-size: 0.75rem; color: #888; margin-top: 0.4rem; line-height: 1.4; }
+
     .section { margin-bottom: 0.75rem; }
 
     .sex-toggle { display: flex; gap: 0.5rem; }
@@ -179,6 +181,7 @@
               <span class="slider-value" id="fastingValue">14:10</span>
             </div>
             <input type="range" id="fasting" min="1" max="5" value="2">
+            <div class="helper-text">First number = hours eating window, second = fasting hours. 14:10 means eat within a 10hr window, fast for 14hrs overnight.</div>
           </div>
         </div>
       </div>
