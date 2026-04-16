@@ -30,215 +30,367 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 40px 20px;
         }
 
-        header {
+        .hero {
             text-align: center;
-            margin-bottom: 60px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid var(--border);
+            padding: 60px 0 80px;
         }
 
-        h1 {
-            font-size: 2.5rem;
+        .hero-eyebrow {
+            display: inline-block;
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--accent-green);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 24px;
+            letter-spacing: 0.5px;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 20px;
             background: linear-gradient(135deg, var(--accent), var(--accent-purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .subtitle {
+        .hero p {
+            font-size: 1.2rem;
             color: var(--text-muted);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
+            max-width: 550px;
+            margin: 0 auto 40px;
+            line-height: 1.7;
         }
 
-        .cta-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
+        .cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
         }
 
-        .cta-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
+        .cta-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--accent), #1a6fd0);
+            color: #fff;
+            padding: 16px 32px;
             border-radius: 12px;
-            padding: 30px;
             text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(88, 166, 255, 0.3);
+        }
+
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-secondary);
             color: var(--text);
+            padding: 16px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 1px solid var(--border);
             transition: border-color 0.2s, transform 0.2s;
         }
 
-        .cta-card:hover {
+        .cta-secondary:hover {
             border-color: var(--accent);
             transform: translateY(-2px);
         }
 
-        .cta-card h3 {
-            color: var(--accent);
-            font-size: 1.3rem;
-            margin-bottom: 12px;
+        .divider {
+            height: 1px;
+            background: var(--border);
+            margin: 60px 0;
         }
 
-        .cta-card p {
+        .story {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .story h2 {
+            font-size: 1.8rem;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .story p {
+            font-size: 1.05rem;
             color: var(--text-muted);
-            font-size: 0.95rem;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.8;
         }
 
-        .cta-card .card-arrow {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--accent);
-            font-weight: 600;
+        .story p strong {
+            color: var(--text);
         }
 
         .features {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 24px;
             margin-bottom: 60px;
         }
 
-        .feature {
+        .feature-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
             text-align: center;
+            transition: border-color 0.2s, transform 0.2s;
         }
 
-        .feature h3 {
+        .feature-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .feature-card h3 {
             color: var(--accent-green);
+            font-size: 1.1rem;
             margin-bottom: 10px;
         }
 
-        .feature p {
+        .feature-card p {
             color: var(--text-muted);
             font-size: 0.9rem;
-        }
-
-        section {
-            margin-bottom: 60px;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-            color: var(--accent);
-            margin: 50px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
+            line-height: 1.6;
         }
 
         .how-it-works {
             background: var(--bg-secondary);
-            border-radius: 12px;
-            padding: 30px;
+            border-radius: 16px;
+            padding: 40px;
             border: 1px solid var(--border);
+            margin-bottom: 60px;
         }
 
-        .how-it-works ol {
-            margin: 20px 0 20px 25px;
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 1.6rem;
+            margin-bottom: 40px;
+            color: var(--text);
         }
 
-        .how-it-works li {
-            margin-bottom: 12px;
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 28px;
+            align-items: flex-start;
         }
 
-        .how-it-works strong {
-            color: var(--accent);
+        .step:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content h3 {
+            color: var(--text);
+            margin-bottom: 6px;
+            font-size: 1rem;
+        }
+
+        .step-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .quote {
+            text-align: center;
+            padding: 40px;
+            margin-bottom: 60px;
+        }
+
+        .quote blockquote {
+            font-size: 1.3rem;
+            color: var(--text);
+            font-style: italic;
+            max-width: 550px;
+            margin: 0 auto 16px;
+            line-height: 1.6;
+        }
+
+        .quote cite {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
         .disclaimer {
             background: var(--bg-secondary);
-            border-radius: 8px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 20px 24px;
             border: 1px solid var(--border);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-muted);
+            text-align: center;
+        }
+
+        .disclaimer strong {
+            color: var(--text);
         }
 
         footer {
             margin-top: 60px;
-            padding-top: 30px;
+            padding-top: 40px;
             border-top: 1px solid var(--border);
             text-align: center;
             color: var(--text-muted);
             font-size: 0.9rem;
         }
 
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 600px) {
-            .container {
-                padding: 20px 15px;
+            .hero h1 {
+                font-size: 2.2rem;
             }
-            h1 {
-                font-size: 1.8rem;
+            .hero p {
+                font-size: 1rem;
             }
-            .cta-grid {
-                grid-template-columns: 1fr;
+            .cta-group {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cta-primary, .cta-secondary {
+                width: 100%;
+                justify-content: center;
+            }
+            .how-it-works {
+                padding: 24px;
+            }
+            .step {
+                gap: 16px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Longevity Research Hub</h1>
-            <p class="subtitle">Evidence-based health optimization protocols personalized to your body composition, health conditions, and biomarkers. Built from peer-reviewed research.</p>
-        </header>
+        <section class="hero">
+            <span class="hero-eyebrow">Evidence-Based Longevity Science</span>
+            <h1>Your Personalized<br>Health Blueprint</h1>
+            <p>Peer-reviewed longevity science, distilled into a daily protocol that actually fits your life. No jargon. No overwhelm. Just what works for your body.</p>
+            <div class="cta-group">
+                <a href="docs/intake-form.html" class="cta-primary">
+                    Get My Personalized Plan
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="docs/index.html" class="cta-secondary">
+                    Browse the Research
+                </a>
+            </div>
+        </section>
 
-        <div class="cta-grid">
-            <a href="docs/intake-form.html" class="cta-card">
-                <div class="card-arrow">→</div>
-                <h3>Get Your Personalized Protocol</h3>
-                <p>Complete a 5-minute intake questionnaire and receive a customized daily health plan based on your profile and goals.</p>
-            </a>
-            <a href="docs/index.html" class="cta-card">
-                <div class="card-arrow">→</div>
-                <h3>Browse Protocol Library</h3>
-                <p>Explore evidence-based recommendations for nutrition, exercise, supplements, and lifestyle across different health profiles and conditions.</p>
-            </a>
-        </div>
+        <div class="divider"></div>
 
-        <section>
-            <h2>What Is This?</h2>
-            <p>A practical longevity research hub translating peer-reviewed science into actionable daily protocols. Rather than overwhelming you with research papers, this project distills the science into:</p>
-            <div class="features">
-                <div class="feature">
-                    <h3>Body Composition Profiles</h3>
-                    <p>Protein targets, training priorities, and supplement stacks matched to whether you're lean, average, overweight, or obese.</p>
+        <section class="story">
+            <h2>Why This Exists</h2>
+            <p>Longevity research is exploding — but most of it stays locked in academic papers. This project exists because <strong>a friend needed help navigating their health</strong>, and sorting through 200+ studies wasn't a realistic option.</p>
+            <p style="margin-top: 16px;">So we did the work. Curated the science. Built practical protocols that are actually followable — not just theoretically interesting.</p>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Body Composition Matched</h3>
+                <p>Your protein targets, training priorities, and supplement stack are tailored to whether you're lean, average, overweight, or obese.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏥</div>
+                <h3>Condition-Specific</h3>
+                <p>Targeted protocols for diabetes, hypertension, gut issues, inflammation, sleep problems, and more — with your specific context in mind.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🩸</div>
+                <h3>Biomarker Targets</h3>
+                <p>Clear numbers to track — fasting insulin, HS-CRP, HbA1c — with explanations of why each one matters for your longevity.</p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h3>Tell Us About Yourself</h3>
+                    <p>5-minute intake form covering your body composition, health conditions, medications, activity level, and goals.</p>
                 </div>
-                <div class="feature">
-                    <h3>Condition-Specific Protocols</h3>
-                    <p>Targeted interventions for diabetes, hypertension, inflammation, gut health, sleep issues, and more.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h3>Get Your Personalized Blueprint</h3>
+                    <p>Based on your profile, receive a concrete daily plan — morning routine, meals, supplements, exercise, and evening wind-down.</p>
                 </div>
-                <div class="feature">
-                    <h3>Biomarker Targets</h3>
-                    <p>Optimal ranges for key longevity markers with explanations of why each one matters.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h3>Track & Refine Every 3-6 Months</h3>
+                    <p>Your optimal protocol evolves as you improve. Re-check when key markers change or your goals shift.</p>
                 </div>
             </div>
         </section>
 
-        <section>
-            <h2>How It Works</h2>
-            <div class="how-it-works">
-                <ol>
-                    <li><strong>Complete the intake form</strong> — Takes about 5 minutes. Covers your body composition, health conditions, medications, and lifestyle.</li>
-                    <li><strong>Get your personalized protocol</strong> — Based on your profile, we recommend specific protein targets, supplement doses, exercise priorities, and timing.</li>
-                    <li><strong>Track and iterate</strong> — Optimal protocols evolve as you improve. Re-check every 3-6 months or when key markers change.</li>
-                </ol>
-            </div>
+        <section class="quote">
+            <blockquote>"The best longevity intervention is the one you'll actually do."</blockquote>
+            <cite>— Peter Attia</cite>
         </section>
 
         <div class="disclaimer">
-            <strong>Disclaimer:</strong> These protocols are for informational purposes only and are not medical advice. Always consult a healthcare provider before making changes to your health regimen, especially if you have existing medical conditions or take medications.
+            <strong>Disclaimer:</strong> These protocols are for educational purposes only and are not medical advice. Always consult a healthcare provider before making changes to your health regimen, especially if you have existing medical conditions or take medications.
         </div>
 
         <footer>
-            <p>Last updated: April 2026</p>
-            <p>View the <a href="https://github.com/stancsz/longevity-research" style="color: var(--accent);">source code and research references on GitHub</a></p>
+            <p>Built with care from peer-reviewed research. Last updated: April 2026</p>
+            <p><a href="https://github.com/stancsz/longevity-research">View source code and research references on GitHub</a></p>
         </footer>
     </div>
 </body>
