@@ -30,13 +30,15 @@ Evidence-based health optimization protocols — personalized for your body comp
 
 ## 🐱 Using the Longevity Advisor Skill
 
-1. Install the skill (if not already):
+1. **Download the skill** from the repo:
    ```bash
-   git clone https://github.com/[your-username]/longevity-research.git /tmp/longevity-repo
+   git clone https://github.com/stancsz/longevity-research.git /tmp/longevity-repo
    mkdir -p .claude/skills/longevity-advisor
    cp /tmp/longevity-repo/.claude/skills/longevity-advisor/SKILL.md .claude/skills/longevity-advisor/
    rm -rf /tmp/longevity-repo
    ```
+
+2. **Load the skill** in Claude Code, Gemini, or Codex — then paste your generated prompt and the agent will produce a detailed, personalized daily health & lifestyle plan.
 
 2. Describe yourself to get a personalized plan:
    - Your weight/height or BMI
