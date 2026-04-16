@@ -1,8 +1,8 @@
-# 🧬 Longevity Research Hub
+# Longevity Research Hub
 
 Evidence-based health optimization protocols — personalized for your body composition, health conditions, and goals.
 
-## 🚀 Quick Start: Enable GitHub Pages
+## Quick Start
 
 1. **Push this repo to GitHub:**
    ```bash
@@ -13,14 +13,14 @@ Evidence-based health optimization protocols — personalized for your body comp
    ```
 
 2. **Enable GitHub Pages:**
-   - Go to your repo on GitHub → **Settings** → **Pages**
-   - Under **Source**, select: **Deploy from a branch**
-   - Under **Branch**, select: **`main`** and **`/docs`** folder
-   - Click **Save**
+   - Go to your repo on GitHub → Settings → Pages
+   - Under Source, select: **Deploy from a branch**
+   - Under Branch, select: **`main`** and **`/docs`** folder
+   - Click Save
 
 3. **Your site will be live at:** `https://[your-username].github.io/longevity-research/`
 
-## 📋 What's in Here
+## What's in Here
 
 | File/Folder | Description |
 |---|---|
@@ -28,9 +28,9 @@ Evidence-based health optimization protocols — personalized for your body comp
 | `personalized-protocols.md` | Raw knowledge base (used by the Longevity Advisor skill) |
 | `.claude/skills/longevity-advisor/` | Claude skill that generates personalized plans based on this research |
 
-## 🐱 Using the Longevity Advisor Skill
+## Using the Longevity Advisor Skill
 
-1. **Download the skill** from the repo:
+1. **Download the skill:**
    ```bash
    git clone https://github.com/stancsz/longevity-research.git /tmp/longevity-repo
    mkdir -p .claude/skills/longevity-advisor
@@ -38,16 +38,16 @@ Evidence-based health optimization protocols — personalized for your body comp
    rm -rf /tmp/longevity-repo
    ```
 
-2. **Load the skill** in Claude Code, Gemini, or Codex — then paste your generated prompt and the agent will produce a detailed, personalized daily health & lifestyle plan.
+2. **Load the skill** in Claude Code, Gemini, or Codex, then paste your intake form results and the agent will produce a detailed, personalized daily health and lifestyle plan.
 
-2. Describe yourself to get a personalized plan:
-   - Your weight/height or BMI
+3. **Describe yourself to get a personalized plan:**
+   - Weight, height, or BMI
    - Age
-   - Any health conditions (diabetes, hypertension, gut issues, etc.)
+   - Health conditions (diabetes, hypertension, gut issues, etc.)
    - Current medications
-   - Your main goals (fat loss, muscle, longevity, etc.)
+   - Main goals (fat loss, muscle, longevity, etc.)
 
-## 📊 Contents
+## Contents
 
 - **Body Composition Profiles** — 4 profiles (Lean, Average, Overweight, Obese) with tailored protocols
 - **Health Condition Protocols** — 9 conditions: diabetes, hypertension, cholesterol, inflammation, sarcopenia, bone health, gut dysbiosis, mental health, sleep
@@ -56,9 +56,9 @@ Evidence-based health optimization protocols — personalized for your body comp
 - **Daily Timing Protocol** — Hour-by-hour template
 - **Extended Intake Questionnaire** — For deep personalization
 
-## ⚠️ Disclaimer
+## Disclaimer
 
-These are general guidelines based on published research — **always consult a healthcare provider** for personal medical advice, especially if you have existing conditions or take medications.
+These are general guidelines based on published research — always consult a healthcare provider for personal medical advice, especially if you have existing conditions or take medications.
 
 ---
 
